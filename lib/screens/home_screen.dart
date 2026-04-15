@@ -78,7 +78,7 @@ class _HomeBody extends StatelessWidget {
               const SizedBox(height: 12),
               // Stop button (only visible when a session is active)
               if (timer.state != TimerState.stopped)
-                _StopButton(),
+                const _StopButton(),
               const SizedBox(height: 40),
               // Today's summary
               const _DailySummary(),
@@ -138,6 +138,8 @@ class _PrimaryButton extends StatelessWidget {
 
 /// Stop button shown only when a session is active.
 class _StopButton extends StatelessWidget {
+  const _StopButton();
+
   @override
   Widget build(BuildContext context) {
     final timer = context.read<TimerProvider>();
