@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import '../models/break_entry.dart';
@@ -23,8 +24,9 @@ class HiveService {
 
     try {
       await Hive.openBox<WorkSession>(_sessionsBoxName);
-    } catch (_) {
-      // Box is corrupted — manually delete the files and reopen fresh.
+    } catch (e, stack) {
+      // Box is corrupted — log, delete the files and reopen fresh.
+      debugPrint('Hive openBox failed: $e\n$stack');
       final dir = await getApplicationDocumentsDirectory();
       for (final ext in ['.hive', '.lock']) {
         final file = File('${dir.path}/$_sessionsBoxName$ext');

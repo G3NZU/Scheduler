@@ -81,14 +81,12 @@ class WorkSessionAdapter extends TypeAdapter<WorkSession> {
   void write(BinaryWriter writer, WorkSession obj) {
     writer.writeByte(4); // 4 fields
     writer.writeByte(0);
-    writer.writeString(obj.id);
+    writer.write(obj.id);
     writer.writeByte(1);
-    writer.writeInt(obj.startTime.millisecondsSinceEpoch);
+    writer.write(obj.startTime.millisecondsSinceEpoch);
     writer.writeByte(2);
-    // Use write(null) for nullable fields – Hive encodes null as a typed null value
-    writer.write(
-        obj.endTime?.millisecondsSinceEpoch);
+    writer.write(obj.endTime?.millisecondsSinceEpoch);
     writer.writeByte(3);
-    writer.writeList(obj.breaks);
+    writer.write(obj.breaks);
   }
 }
